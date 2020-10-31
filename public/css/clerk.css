@@ -1,0 +1,61 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100&display=swap');
+
+
+  .subcontent{
+
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left: 570px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    color: white;
+  }
+
+  *{
+    list-style: none;
+    margin:0;
+    padding: 0;
+    box-sizing: content-box;
+    font-family: 'Montserrat', sans-serif;
+  }
+  
+
+  .wrapper{
+
+    display: flex;
+    margin-top: -80px;
+    margin-left: 230px;
+    justify-content: center;
+    align-items: center;
+    height: 100vh  ;
+
+    
+  }
+  .list_wrap{
+    background: rgba(0,0,0,0.4);
+    box-sizing: content-box;
+
+  /*  border-width: 700px;*/
+    height:400px;
+    box-shadow: -1px -1px 60px 10px black inset;
+  }
+
+  .list_wrap ul li{
+    background:rgb(23, 99, 47);
+    margin-top: 2px;
+    margin-left: 600px;
+    margin-bottom: 10px;
+    padding: 15px 15px;
+    width: 200px;
+    padding-right:1px ;
+    color: white;
+    font-size: 25px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    line-height: 22px;
+    border-radius: 50px;
+    position: -webkit-sticky;
+     
+  }
+  .list_wrap ul li :last-child{
+    margin-bottom: 0;
+  }
+ 
