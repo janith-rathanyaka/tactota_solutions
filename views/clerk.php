@@ -1,6 +1,16 @@
 <?php
-   include 'clerk_sidebar.php';
+session_start();
+if(empty($_SESSION['emp_id']) || $_SESSION['emp_id'] == ''){
+    header("Location: login.php");
+    die();
+}
+
+// print_r($_SESSION['emp_id']);
+include 'clerk_sidebar.php';
+
+
 ?>
+
 <body>
 <div class="content" style="width: auto;">
     <div>

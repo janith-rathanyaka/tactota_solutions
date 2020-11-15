@@ -123,7 +123,7 @@ class authenitication
          if($result==false){
              echo "worng";
          }else{
-             header('location: ../views/check_email');
+             header('location: ../views/check_email.php');
          }
 
      }
@@ -160,14 +160,17 @@ class authenitication
         if (!isset($_SESSION['username']))
         {
             header('location: ../views/login.php');
+            exit();
         }
         else if(isset($_SESSION['username'])!="")
             header('location: ../views/login.php');
+     //   exit();
         if(isset($_GET['logout']))
         {
             session_destroy();
             session_unset();
             header('location: ../views/login.php');
+            exit();
         }
     }
 

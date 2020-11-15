@@ -1,6 +1,13 @@
 <?php
-include 'admin_sidebar.php';
+session_start();
+if(empty($_SESSION['username']) || $_SESSION['username'] == ''){
+    header("Location: login.php");
+    die();
+}
+print_r($_SESSION['username']);
+//include 'admin_sidebar.php';
 ?>
+<!--
 <body>
 <div class="content">
     <div>

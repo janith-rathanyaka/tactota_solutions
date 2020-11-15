@@ -21,7 +21,7 @@ $sql=$data->update_product();
         <table>
             <thead>
             <tr>
-                <th>Product ID</th>
+
                 <th>Product Name</th>
                 <th>Brand Name</th>
                 <th>Model No</th>
@@ -36,7 +36,7 @@ $sql=$data->update_product();
             {
                 ?>
                 <tr>
-                    <td><?php echo $sql[$k]["p_id"] ?></td>
+
                     <td><?php echo $sql[$k]["p_name"] ?></td>
                     <td><?php echo $sql[$k]["brand_name"] ?></td>
                     <td><?php echo $sql[$k]["model_no"] ?></td>
