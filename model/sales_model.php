@@ -73,7 +73,7 @@ class sales_model
 
      public function dashbord_search($id){
          $result = "";
-         $query = $this->mysqli->query("SELECT p_name FROM product where p_id='" . $id . "'");
+         $query = $this->mysqli->query("SELECT p_cost,brand_name FROM product where p_name='" . $id . "'");
 
          while ($row = $query->fetch_assoc()) {
              $result = $row;

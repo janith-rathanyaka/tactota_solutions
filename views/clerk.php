@@ -5,14 +5,24 @@ if(empty($_SESSION['emp_id']) || $_SESSION['emp_id'] == ''){
     die();
 }
 
-// print_r($_SESSION['emp_id']);
+
 include 'clerk_sidebar.php';
 
 
 ?>
 
-<body>
+
+
 <div class="content" style="width: auto;">
+
+    <?php if(isset($_SESSION['success'])): ?>
+     <div class="alert">
+    <h1><?php echo $_SESSION['success']; ?> </h1>
+     </div>
+    <?php endif; ?>
+    <?php unset($_SESSION['success']); ?>
+
+
     <div>
         <div class= "dash1">
             <b><p class="dash">hello world</p></b>
@@ -83,5 +93,14 @@ include 'clerk_sidebar.php';
         <p>© Tactota Solutions All rights reserved </p>
     </div>
 </div>
-</body
+
+<script>
+
+    setTimeout(function() {
+        let alert = document.querySelector(".alert");
+        alert.remove();
+    }, 500);
+
+</script>
+
   

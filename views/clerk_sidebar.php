@@ -32,7 +32,7 @@
 
                 <i class="far fa-user-circle fa-2x"></i>
                 <ul class="menu">
-                    <li><a href="../controller/authenitication.php?action=update_profile"><i class="fas fa-user-alt"></i>Profile</a></li>
+                    <li><a href="../controller/authenitication.php?action=profile"><i class="fas fa-user-alt"></i>Profile</a></li>
                     <li><a href="../controller/authenitication.php?action=logout"><i class="fas fa-sign-out-alt"></i>Log out</a></li>
                 </ul>
             </div>
