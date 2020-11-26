@@ -3,7 +3,6 @@
 
 class authenitication_model{
 
-  //  public string $result = "";
 
 
        public function __construct() {
@@ -14,7 +13,7 @@ class authenitication_model{
            {
 
                $result = "";
-               $query = $this->mysqli->query("SELECT * FROM user_account WHERE username='" . $username . "' AND password='" . $password . "' AND verified=1");
+               $query = $this->mysqli->query("SELECT * FROM user_account WHERE username='" . $username . "' AND password='" . $password . "' AND verified=1 OR email='".$username."'");
                if ($query->num_rows > 0) {
                    while ($row = $query->fetch_assoc()) {
                        $result = $row['emp_id'];
@@ -109,14 +108,50 @@ class authenitication_model{
     }
 
 
-    public function get_details()
+   public function get_details()
     {
-        $query = $this->mysqli->query("SELECT user_account.emp_id,username,position,verified FROM user_account INNER JOIN employee ON user_account.emp_id=employee.emp_id ORDER BY emp_id ASC");
-        while ($row = $query->fetch_assoc()) {
-            $result[] = $row;
+        $query = $this->mysqli->query("SELECT user_account.emp_id,employee.first_name,employee.last_name,username,position,verified FROM user_account INNER JOIN employee ON user_account.emp_id=employee.emp_id ORDER BY emp_id ASC");
+        if ($query->num_rows > 0) {
+            while ($row = $query->fetch_assoc()) {
+                $result[] = $row;
+            }
+            return $result;
+        }else
+        {
+            return 0;
         }
-        return $result;
+
     }
+
+    public function get_details_search($row)
+    {
+        $query = $this->mysqli->query("SELECT * FROM user_account INNER JOIN employee ON user_account.emp_id=employee.emp_id WHERE  position LIKE  '%" . $row . "%' OR username LIKE  '%" . $row . "%'  ");
+        if ($query->num_rows > 0) {
+            while ($row = $query->fetch_assoc()) {
+                $result[] = $row;
+            }
+            return $result;
+        }else
+        {
+            return 0;
+        }
+    }
+
+    public function admin_get_details_search($row){
+        $query = $this->mysqli->query("SELECT * FROM user_account INNER JOIN employee ON user_account.emp_id=employee.emp_id WHERE position LIKE  '%" . $row . "%' OR username LIKE  '%" . $row . "%' ");
+        if ($query->num_rows > 0) {
+            while ($row = $query->fetch_assoc()) {
+                $result[] = $row;
+            }
+            return $result;
+        }else
+        {
+            return 0;
+        }
+    }
+
+
+
 
     public function get_view_details($id){
         $result = "";
@@ -193,5 +228,12 @@ class authenitication_model{
             return $stmt->execute();
         }
 
+    }
+
+    public function delete_account($emp_id){
+        if($this->mysqli->query("DELETE FROM employee INNER JOIN user_account ON employee.emp_id=user_account.emp_id WHERE employee.emp_id = ".$emp_id.";") == TRUE) {
+            return true;
+        }
+        else return false;
     }
 }

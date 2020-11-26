@@ -72,14 +72,112 @@ class sales_model
     }
 
      public function dashbord_search($id){
-         $result = "";
-         $query = $this->mysqli->query("SELECT p_cost,brand_name FROM product where p_name='" . $id . "'");
+         //$result = "";
+         $query = $this->mysqli->query("SELECT DISTINCT p_name,model_no,brand_name FROM product where p_name LIKE   '%" . $id . "%'");
 
          while ($row = $query->fetch_assoc()) {
-             $result = $row;
+             $result[] = $row;
          }
          return $result;
      }
+
+     public function view_search_product($id,$model){
+
+         $query = $this->mysqli->query("SELECT product.p_name,product.quantity,product.brand_name,product.model_no,product.p_cost,product.warranty,item.sales_price FROM product INNER JOIN item ON product.p_id=item.p_id AND product.p_name='" . $id . "' AND product.model_no='" . $model . "'" );
+         while ($row = $query->fetch_assoc()) {
+
+             $result[] = $row;
+         }
+         return $result;
+     }
+
+    public function add_bill_details($id,$bill_no,$date_time,$amount,$payment_method,$cust_id,$cheque_no,$recived_date,$due_date,$bank_name,$telephone_no,$serial_no){ //nuwan
+
+        $stmt = $this->mysqli->query("INSERT INTO bill (bill_no,date_time,amount,payment_method,emp_id)
+        VALUES (?,?,?,?,?)");
+
+        $stmt->bind_param('sssss',$bill_no,$date_time,$amount,$payment_method,$id);
+        $stmt->execute();
+        $stmt1 = $this->mysqli->prepare("INSERT INTO  customer(cust_id,cust_name,email_address,address)
+                                VALUES (?,?,?,?)");
+
+        $stmt1->bind_param('ssss',$cust_id,$cust_name,$emai_address,$address);
+        $stmt1->execute();
+
+
+        $stmt2 = $this->mysqli->prepare("INSERT INTO  cheque(bill_no,cheque_id,recived_date,due_date,bank_name)
+         VALUES (?,?,?,?,?)");
+
+        $stmt2->bind_param('sssss',$bill_no,$cheque_no,$recived_date,$due_date,$bank_name);
+        $stmt2->execute();
+
+        $stmt3= $this->mysqli->prepare("INSERT INTO  cust_telephone(cust_id,telephone_no)
+         VALUES (?,?)");
+
+        $stmt3->bind_param('ss',$cust_id,$telephone_no);
+        $stmt3->execute();
+
+        $stmt4= $this->mysqli->prepare("INSERT INTO  purchase(bill_no,serial_no,cust_id)
+         VALUES (?,?,?)");
+
+        $stmt4->bind_param('sss',$bill_no,$serial_no,$cust_id);
+        $stmt4->execute();
+
+
+
+
+
+
+    }
+
+    public function cust_id(){ //nuwan
+        $query = $this->mysqli->query("SELECT * from customer order by cust_id desc LIMIT 1");
+        if ($query->num_rows > 0) {
+            while ($row = $query->fetch_assoc()) {
+                $result = $row['cust_id'];
+            }
+
+            $result = substr($result, 3, 5);
+            $result = (int) $result + 1;
+            $result = "C" . sprintf('%04s', $result);
+            return $result;
+        }else
+        {
+            $result = "C0001";
+
+            return $result;
+        }
+    }
+
+
+public function get_product(){//nuwan
+    $query = $this->mysqli->query("SELECT item.serial_no,product.p_id,product.p_name,product.brand_name,product.model_no,product.warranty,item.sales_price FROM product INNER JOIN item ON product.p_id=item.p_id");
+    while ($row = $query->fetch_assoc()) {
+        $result[] = $row;
+    }
+    return $result;
+}
+
+public function get_bill_no(){//nuwan
+    $query = $this->mysqli->query("SELECT * from bill order by bill_no desc LIMIT 1");
+    if ($query->num_rows > 0) {
+        while ($row = $query->fetch_assoc()) {
+            $result = $row['bill_no'];
+        }
+
+        $result = substr($result, 3, 5);
+        $result = (int) $result + 1;
+        $result = "B" . sprintf('%04s', $result);
+        return $result;
+    }else
+    {
+        $result = "B0001";
+
+        return $result;
+    }
+}
+
+
 
 
 }

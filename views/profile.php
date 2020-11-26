@@ -2,7 +2,6 @@
 //require '../controller/authenitication.php';
 session_start();
 $row= $_SESSION['upadate_profile_view'];
-//$row=$_SESSION['row'];
  if($_SESSION['role']=="Clerk")
    require('clerk_sidebar.php');
 elseif ($_SESSION['role']=="Admin")
@@ -10,22 +9,16 @@ elseif ($_SESSION['role']=="Admin")
 elseif($_SESSION['role']=='Shopkeeper')
    require('shopkeeper_sidebar.php');
 
-
-//include 'clerk_sidebar.php';
-
-//print_r($row);
-// print_r($_SESSION['emp_id']);
-
-
 ?>
 
 
+<link rel="stylesheet" href="../public/css/signup.css">
 <link rel="stylesheet" href="../public/css/style1.css">
 
-<div class="content">
+<div class="content" style="width: auto;">
     <form method="post" action="../controller/authenitication.php?action=update_profile&id=<?php echo $row['emp_id'] ?>">
-        <div class="main-box">
-            <div class="sub-box">
+        <div class="main-container">
+            <div class="sub-container">
 
                 <div class="row">
                     <div class="col-75">
@@ -84,7 +77,7 @@ elseif($_SESSION['role']=='Shopkeeper')
 
                 <div class="row">
                     <div class="col-25">
-                        <label for="nic">NIC</label>
+                        <label1 for="nic">NIC</label1>
                     </div>
                     <div class="col-75">
                         <input type="text" name="nic" value="<?php echo $row['nic'] ?>" disabled>
@@ -94,7 +87,7 @@ elseif($_SESSION['role']=='Shopkeeper')
 
                 <div class="row">
                     <div class="col-25">
-                        <label for ="dob">DOB</label>
+                        <label1 for ="dob">DOB</label1>
                     </div>
                     <div class="col-75">
                         <input type="text" name="dob" value="<?php echo $row['dob'] ?>" disabled>
@@ -111,7 +104,7 @@ elseif($_SESSION['role']=='Shopkeeper')
 
             </div>
 
-            <div class="sub-box">
+            <div class="sub-container">
 
                 </br></br</br></br></br></br>
                 <div class="row">

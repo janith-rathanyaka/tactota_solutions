@@ -1,5 +1,5 @@
 <?php
-  require_once("../model/authenitication_model.php");
+require_once("../model/authenitication_model.php");
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
@@ -44,7 +44,7 @@ class authenitication
                 header('location: ../views/login.php');
             } else {
                 $role = $this->auth->getposition($row);
-               //echo $role;
+       //        echo $role;
 
                 if ($role == "Admin") {
                     $_SESSION['username'] = $username;
@@ -106,7 +106,7 @@ class authenitication
          $mail->Password = '#project32'; // YOUR gmail password
 
          // Sender and recipient settings
-         $mail->setFrom('projectt541@gmail.com', 'Sender Name');
+         $mail->setFrom('projectt541@gmail.com', '');
          $mail->addAddress($email);
          //$mail->addReplyTo('example@gmail.com', 'Sender Name'); // to set the reply to
 
@@ -136,7 +136,7 @@ class authenitication
        //  print_r($password);
         // print_r($cpassword);
         if($password != $cpassword){
-            header('location: ../views/forgotpassword.php');
+            header('location: ../views/forgetpassword.php');
         }else{
             $result=$this->auth->update_password($key,$password);
 
@@ -187,7 +187,7 @@ class authenitication
           $lastname = $_POST['lastname'];
           $address = $_POST['address'];
           $mobile_no = $_POST['moblile_no'];
-          $nic = $_POST['nic'];
+          $nic = $_POST['nic8'];
           $dob = $_POST['dob'];
           $job_position = $_POST['job_position'];
           $email = $_POST['email'];
@@ -216,10 +216,11 @@ class authenitication
           if (empty($nic)) {
               $errors['nic'] = "NIC is required";
           }
-          if (empty($dob)) {
-              $errors['dob'] = "DOB is required";
-          }
-          if(empty($email)){
+
+
+
+
+          if(!empty($email)){
               if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                   $errors['email'] = "Invalid email format";
               }
@@ -235,6 +236,7 @@ class authenitication
 
         //$target = "images/".basename($image);
             //image upload
+        $imgContent="";
         if(!empty($_FILES["image"]["name"])) {
             // Get file info
             $fileName = basename($_FILES["image"]["name"]);
@@ -250,49 +252,30 @@ class authenitication
 
                 $token=bin2hex(random_bytes(50));
 
-          $verifed=false;
-          $row = $this->auth->valid_email($email);
-          $row1 = $this->auth->valid_username($username);
+               $verifed=false;
+
+                 $emp_id = $this->auth->getempid();
+                 // echo $emp_id;
+                 if ($this->auth->emp_register($emp_id, $firstname, $middlename, $lastname, $nic, $address, $imgContent, $job_position, $mobile_no, $dob, $username, $password, $email, $verifed, $token) != 0) {
+
+                     // header('location:authenitication.php?action=sendverifiedemail&id=$email&id2=$token');
+
+                     //header('location: ../views/successful_register.php');
+
+                     $result = $this->send_email($email, $firstname, $token, $emp_id);
+                     if ($result == true) {
+                         // return "OK";
+                         header('location: ../views/successful_register.php');
+                     } else
+                         echo "Error in sending email";
+                 } else {
+                     echo "wrong";
+                 }
 
 
-              if($password != $cpassword){
-                  echo "passwords doesn't match";
-              }else if ($row != "0") {
+       //      }
+         //}
 
-                     echo "email already doesnot mamtch";
-              }
-              else if($row1 != "0" )
-              {
-                     echo "username doesn't match";
-              }
-             else{
-                   $emp_id = $this->auth->getempid();
-                   // echo $emp_id;
-                    if($this->auth->emp_register($emp_id,$firstname,$middlename,$lastname,$nic,$address,$imgContent,$job_position,$mobile_no,$dob,$username,$password,$email,$verifed,$token) !=0){
-
-                        // header('location:authenitication.php?action=sendverifiedemail&id=$email&id2=$token');
-
-                        //header('location: ../views/successful_register.php');
-
-                        $result=$this->send_email($email,$firstname,$token,$emp_id);
-                        if($result==true){
-                            header('location: ../views/successful_register.php');
-                        } else
-                            echo "Error in sending email";
-                    }else{
-                          echo "wrong";
-                   }
-
-
-
-              }
-
-        function test_input($data) {
-            $data = trim($data);
-            $data = stripslashes($data);
-            $data = htmlspecialchars($data);
-            return $data;
-        }
 
      }
      public function send_email($email,$firstname,$token,$emp_id){
@@ -316,7 +299,7 @@ class authenitication
          // Setting the email content
          $mail->IsHTML(true);
          $mail->Subject = "Send email using Gmail SMTP and PHPMailer";
-         $mail->Body = 'HTML message body. <b><a href="http://localhost/tactota_solutions/controller/authenitication.php?action=verify_account&id=' . $emp_id . '&token='.$token.'">Verify Email!</a></b> SMTP email body.';
+         $mail->Body = 'verify register . <b><a href="http://localhost/tactota_solutions/controller/authenitication.php?action=verify_account&id=' . $emp_id . '&token='.$token.'">Verify Email!</a></b> SMTP email body.';
          $mail->AltBody = 'Plain text message body for non-HTML email client. Gmail SMTP email body.';
 
          $result=$mail->send();
@@ -328,13 +311,23 @@ class authenitication
      }
 
      public function  user_details(){
-          print_r($_SESSION['emp_id']);
+        //  print_r($_SESSION['emp_id']);
+         return $this->auth->get_details();
      }
 
-    public function active_user()
+    public function active_user($row)
     {
 
-       return $this->auth->get_details();
+        $row1=$this->auth->get_details_search($row);
+
+        if($row1!=""){
+            $_SESSION['active_user']=$row1;
+           header('location: ../views/clerk_users_result.php');
+            //   print_r($row1);
+        }else if($row1==0) {
+            echo "NOT FOUND";
+        }
+
     }
 
     public function sent_view_profile($id)
@@ -343,21 +336,16 @@ class authenitication
      //   print_r($id);
        $row = $this->auth->get_view_details($id);
 
-      /*  echo "<br>";
-        print_r($row['first_name']);
-        echo "<br>";
-        print_r($row['middle_name']);
-        echo "<br>";
-        print_r($row['last_name']);
-        echo "<br>";
-        print_r($row['email']);
-        echo "<br>";
-        print_r($row['nic']);
-        echo "<br>";
-        print_r($row['address']);
-      */
-       $_SESSION['row']=$row;
-       header('location: ../views/view_profile.php');
+        if($_SESSION['role']=="Clerk"){
+            $_SESSION['row'] = $row;
+            header('location: ../views/view_profile.php');
+        } elseif ($_SESSION['role']=="Admin") {
+            $_SESSION['row'] = $row;
+            header('location: ../views/delete_view_profile.php');
+        }
+
+
+
 
     }
 
@@ -371,19 +359,14 @@ class authenitication
         }else if($id1==0){
             $_SESSION['active_deactive']="Successfully Deactivated";
         }
-        header('location: ../views/clerk_active_user.php');
+        header('location: ../views/users.php');
 
     }
 
 
     public function search_details()
     {
-     //   print_r($search);
-    //    $search = $_POST['query'];
-      //  $run =  $this->auth->search_details($search);
-     //  print_r($run);
-//        $_SESSION['run']=$run;
-     //   header('location: ../views/clerk_active_user_search.php');
+
 
      if(isset($_POST['query'])){
 
@@ -428,10 +411,11 @@ class authenitication
         $address=$_POST['address'];
         $mobile_no=$_POST['mobile_no'];
         $email=$_POST['email'];
-     //   print_r($id);
+        print_r($id);
+        print_r($email);
 //        $row=$this->auth->update_profile_details($id);
 
-        $row=$this->auth->update_profile_details($id,$address,$mobile_no,$email);
+      $row=$this->auth->update_profile_details($id,$address,$mobile_no,$email);
 
         if ($row == "0") {
           echo "wrong";
@@ -452,6 +436,55 @@ class authenitication
         }
     }
 
+    public function delete_account($emp_id)
+    {
+       // print_r($emp_id);
+        $row=$this->auth->delete_account($emp_id);
+         if($row==true){
+             // echo "sucsess";
+              header('location: ../views/users.php');
+         }else{
+            // echo "not";
+             header('location: ../views/users.php');
+         }
+    }
+
+    public function check_email()
+    {
+        $email = $_POST['email'];
+        $row = $this->auth->valid_email($email);
+        if($row != "0" )
+        {
+            echo "taken";
+        }else{
+            echo "not_taken";
+        }
+    }
+
+    public function check_username()
+    {
+        $username = $_POST['username'];
+        $row1 = $this->auth->valid_username($username);
+        if($row1 != "0" )
+        {
+            echo "taken";
+        }else{
+            echo "not_taken";
+        }
+    }
+
+    public function admin_active_user($row)
+    {
+        $row1=$this->auth->admin_get_details_search($row);
+        if($row1!=""){
+            $_SESSION['admin_active_user']=$row1;
+            header('location: ../views/users_result.php');
+            //   print_r($row1);
+        }else if($row1==0) {
+            echo "NOT FOUND";
+        }
+    }
+
 }
         $controller = new authenitication();
          if(isset($_GET['action']) && $_GET['action'] == "register") {
@@ -468,7 +501,8 @@ class authenitication
       }else if(isset($_GET['action']) && $_GET['action'] == 'user_details') {
           $controller->user_details();
       }else if(isset($_GET['action']) && $_GET['action'] == 'active_user') {
-             $controller->active_user();
+             $row=$_POST['query'];
+             $controller->active_user($row);
          }else if(isset($_GET['action']) && $_GET['action'] == 'view_profile' ) {
                $id=$_GET["id"];
             $controller->sent_view_profile($id);
@@ -485,7 +519,7 @@ class authenitication
              $id=$_GET["id"];
              $controller-> update_profile($id);
          }else if(isset($_GET['action']) && $_GET['action'] == 'verify_account' ) {
-             $emp_id="";
+
 
              $emp_id=$_GET["id"];
              $token=$_GET['token'];
@@ -494,6 +528,19 @@ class authenitication
          }else if(isset($_GET['action']) && $_GET['action'] == 'profile' ) { //nuwan
              $emp_id=$_SESSION['emp_id'];
              $controller->update_view_profile($emp_id);
+         }else if(isset($_GET['action']) && $_GET['action'] == 'delete_account' ) { //nuwan
+             $emp_id=$_GET["id"];
+             $controller->delete_account($emp_id);
+         }else if(isset($_GET['action']) && $_GET['action'] == 'check_email' ) {
+
+             $controller->check_email();
+         }else if(isset($_GET['action']) && $_GET['action'] == 'check_username' ) {
+
+             $controller->check_username();
+         }else if(isset($_GET['action']) && $_GET['action'] == 'admin_active_user') {
+             $row=$_POST['query'];
+             $controller->admin_active_user($row);
          }
+
 
 

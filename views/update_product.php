@@ -1,16 +1,11 @@
 <?php
 include 'clerk_sidebar.php';
-require '../controller/inventory_maintain.php';
+//require '../controller/inventory_maintain.php';
 
 ?>
 <?php
 session_start();
 $row=$_SESSION['product_details'];
-// print_r($row);
-// print_r($row['p_name']);
-// print_r($row['p_id']);
-//print_r($_SESSION['emp_id']);
-//print_r($_SESSION['product_details']);
 
 ?>
 <head>

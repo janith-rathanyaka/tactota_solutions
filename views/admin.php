@@ -8,7 +8,7 @@ if(empty($_SESSION['username']) || $_SESSION['username'] == ''){
 include 'admin_sidebar.php';
 ?>
 <body>
-<div class="content">
+<div class="content" style="width: auto;">
     <div>
         <div class="income1">
             <b><p class="incomes">hello world</p></b>

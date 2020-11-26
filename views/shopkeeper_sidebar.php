@@ -30,7 +30,7 @@
 
                 <i class="far fa-user-circle fa-2x"></i>
                 <ul class="menu">
-                    <li><a href="profile.php">Profile</a></li>
+                    <li><a href="../controller/authenitication.php?action=profile">Profile</a></li>
                     <li><a href="../controller/authenitication.php?action=logout">Log out</a></li>
                 </ul>
             </div>
@@ -43,6 +43,6 @@
     <a href="shopkeeper_dashbord.php"><i class="fas fa-home"></i></i><span>Dashboard</span></a>
     <a href="#"><i class="fas fa-cart-plus"></i></i><span>Customer Purchase </span></a>
     <a href="purchase.php"><i class="fas fa-money-bill-alt"></i>Purchase</span></a>
-    <a href="#"><i class="fab fa-product-hunt"></i>Return Product</span></a>
+    <a href="returnitems.php"><i class="fab fa-product-hunt"></i>Return Product</span></a>
 
 </div>

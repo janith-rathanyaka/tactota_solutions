@@ -1,150 +1,70 @@
 <?php
+
+//    require('clerk_sidebar.php');
+include('clerk_sidebar.php');
 session_start();
-//include 'clerk_sidebar.php';
 $row=$_SESSION['row'];
-
-print_r($row);
-
-
-//$row ="";
-
-
-//echo "<br>";
-//print_r($row['middle_name']);
-//echo "<br>";
-//print_r($row['last_name']);
-//echo "<br>";
-//print_r($row['email']);
-//echo "<br>";
-//print_r($row['nic']);
-//echo "<br>";
-//print_r($row['address']);
+//print_r($_SESSION['emp_id']);
 ?>
+<head>
+    <link rel="stylesheet" href="../public/css/update.css">
+</head>
 
-<!--
-<div class="content">
-    <head>
-        <title>Tactota Solutions</title>
-        <link rel="stylesheet" href="../public/css/signup.css">
+<div class="content" style="width: auto;">
+    <h1 id="tbl-heading"> View User Details</h1>
 
+    <div class="update-tbl">
+        <table>
+            <tbody>
+            <tr>
+                <th>First Name</th>
+                <td><?php echo $row['first_name']?></td>
+            </tr>
+            <tr>
+                <th>Middle Name</th>
+                <td><?php echo $row['middle_name']?></td>
+            </tr>
+            <tr>
+                <th>Last Name</th>
+                <td><?php echo $row['last_name']?></td>
+            </tr>
+            <tr>
+                <th>Address</th>
+                <td><?php echo $row['address']?></td>
+            </tr>
+            <tr>
+                <th>Contact Number</th>
+                <td><?php echo $row['mobile_no']?></td>
+            </tr>
+            <tr>
+                <th>NIC</th>
+                <td><?php echo $row['nic']?></td>
+            </tr>
+            <tr>
+                <th>DOB</th>
+                <td><?php echo $row['dob']?></td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td><?php echo $row['email']?></td>
+            </tr>
+            <tr>
+                <th>Username</th>
+                <td><?php echo $row['username']?></td>
+                </td>
+            </tr>
+            <th>Job Position</th>
+            <td><?php echo $row['position']?></td>
+            </tr>
+            <tr>
+                <td colspan=2>
+                    <a class="add_button" href="clerk_active_user.php">Back</a>
 
-    </head>
-    <body>
-    <div>
-
-
-        <div class="main-form">
-
-            <div class="sub-container">
-
-                <b><h1>Edit Account Info</h1></b>
-
-                <form action="" method="post" enctype="multipart/form-data">
-                    <div class="row">
-                        <div class="col-25">
-                            <label>First Name</label>
-                        </div>
-                        <div class="col-25">
-                            <input class="text" type="text" name="firstname" placeholder="First Name" value="<?php echo $row['first_name']?>">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-25">
-                            <label>Middle Name</label>
-                        </div>
-                        <div class="col-25">
-                            <input class="text" type="text" name="middlename" placeholder="Middle Name" value="<?php echo $row['middle_name']?>">
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-25">
-                            <label>Last Name</label>
-                            <div class="col-25">
-                                <input class="text" type="text" name="lastname" placeholder="Last Name" value="<?php echo $row['last_name']?>">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-25">
-                                <label>Address</label>
-                            </div>
-                            <div class="col-25">
-                                <input class="text" type="text" name="address" placeholder="Address" value="<?php echo $row['address']?>">
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-25">
-                                <label>Mobile Number</label>
-                            </div>
-                            <div class="col-25">
-                                <input class="text" type="text" name="moblile_no" placeholder="Mobile Number" value="<?php echo $row['mobile_no'] ?>" required="">
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-25">
-                                <label>NIC</label>
-                            </div>
-                            <div class="col-25">
-                                <input class="text" type="text" name="nic" placeholder="NIC" value="<?php echo $row['nic'] ?>">
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-25">
-                                <label>DOB</label>
-                            </div>
-                            <div class="col-25">
-                                <input class="text" type="text" name="dob" placeholder="DOB" value="<?php echo $row['dob'] ?>" >
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-25">
-                                <label>Email</label>
-                            </div>
-                            <div class="col-25">
-                                <input class="text email" type="email" name="email" placeholder="Email" value="<?php echo $row['email'] ?>">
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-25">
-                                <label>Job Position</label>
-                            </div>
-                            <div class="col-25">
-                                <input class="text" type="text" name="text" placeholder="clerk/shop keeper/admin" value="<?php echo $row['position'] ?>">
-                            </div>
-                        </div>
-
-
-
-
-                    </div>
-                    <div class="sub-container">
-                    </div></br>
-
-
-
-                    <div class="wthree-text">
-                        <div class="clear"> </div>
-                    </div>
-                    <input type="submit">
-                </form>
-
-            </div>
-        </div>
-
-        <div class="footer">
-            <p>© Tactota Solutions All rights reserved </p>
-        </div>
-
+                </td>
+            </tr>
+            </tbody>
+        </table>
     </div>
-    </body>
 </div>
 
-
-
-
-
+</body>

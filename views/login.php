@@ -12,36 +12,46 @@
 
 </head>
 <body>
-	<div>
+<div>
+    <br/>
+    <h1> Login/ SignIn</h1>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <div class="main-container">
+        <div class="sub-container">
+            <div><img src="../public/images/logo.jpeg" alt="logo" class="verticle-center" width=400 height=auto/></div>
+        </div>
+        <div class="sub-container">
+            <form action="../controller/authenitication.php?action=login" method="post">
+                <label for='username' id='left-label'>
+                    <i class="fa fa-user" aria-hidden="true"></i>
+                    &nbsp&nbspUsername *
+                </label>
+                <input id='username' class="text" type="text" name="username" required="">
+                <label for='pswd1' id='left-label'>
+                    <i class="fa fa-key" aria-hidden="true"></i>
+                    &nbsp&nbspPassword *
+                </label>
+                <input id='pswd1' class="text" type="password" name="password" required="">
+                <label for='forget' class="right"><a id='forget' href="forgetpassword.php">Forgot Password?</a></label>
+                    <div class="wthree-text">
+                        <label class="anim">
+                            <input type="checkbox" class="checkbox" >
+                            <span>Remember me</span>
+                        </label>
+                        <div class="clear"> </div>
+                    </div>
+                    <input type="submit" value="LOGIN">
+            </form>
+            <label for='login' id='left-p'>Don't have an Account? <a id='login' href="register.php" style="font-size:1.3em;"> Register Now!</a></label>
+        </div>
+    </div>
 
-		<br/>
-		<h1> Login/ SignIn </h1>
-		<div class="main-container">
-			<div class="sub-container">
-				<div><img src="../public/images/logo.jpeg" alt="logo" class="verticle-center" width=500 height=auto/></div>
-			</div>
-			<div class="sub-container">
-				<form action="../controller/authenitication.php?action=login" method="post">
-					<input class="text" type="text" name="username" placeholder="Username" required="">
-					<input class="text" type="password" name="password" placeholder="Password" required="">
-					<h6 class="right"><a href="forgetpassword.php">Forgot Password?</a></h6>
-					<div class="wthree-text">
-						<label class="anim">
-							<input type="checkbox" class="checkbox">
-							<span>Remember me</span>
-						</label>
-						<div class="clear"> </div>
-					</div>
-					<input type="submit" name="login_user" value="LOGIN">
-				</form>
-				<p>Don't have an Account? <a href="register.php"> Register Now!</a></p>
-			</div>
-		</div>
-
-		<div class="footer">
-			<p>© Tactota Solutions All rights reserved </p>
-		</div>
-
-	</div>
+    <div class="footer">
+        <p>© Tactota Solutions All rights reserved </p>
+    </div>
+</div>
 </body>
-</html>
+

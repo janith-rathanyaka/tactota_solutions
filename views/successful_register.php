@@ -19,7 +19,7 @@
         <div class="sub-container">
             <form action="#" method="post">
 
-                <p>Check email to active your account</p>
+                <label id='left-p' style="font-size:1.3em; color:#007042">Check email to activate your account !</label>
 
             </form>
             <br/>

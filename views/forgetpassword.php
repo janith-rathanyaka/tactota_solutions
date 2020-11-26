@@ -10,39 +10,43 @@
 </head>
 <body>
 <div>
-    <h1>Forgot Password</h1>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
+    <div>
+        <br/>
+        <h1>Forgot Password</h1>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <div class="main-container">
+            <div class="sub-container">
+                <div><img src="../public/images/logo.jpeg" alt="logo" class="verticle-center" width=400 height=auto /></div>
+            </div>
 
-    <div class="main-container">
-        <div class="sub-container">
-            <div><img src="../public/images/logo.jpeg" alt="logo" class="verticle-center" width=400 height=auto /></div>
+            <div class="sub-container">
+                <br/>
+                <form action="../controller/authenitication.php?action=forgotpassword" method="post">
+                    <label id='left-p' style="font-size:1.3em; color:#007042">Please enter your Registered Email Address :</label>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <label for='email' id='left-label'>
+                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                        &nbsp&nbspEmail Address *
+                    </label>
+                    <input id='email' class="text email" type="email" name="email" required="">
+                    <input type="submit" value="NEXT">
+                </form>
+                <label for='forget' class="right">just rememberd? <a id='forget' href="login.php"> SignIn</a></label>
+
+            </div>
         </div>
 
-        <div class="sub-container">
-
-            <form action="../controller/authenitication.php?action=forgotpassword" method="post">
-                <i class="fas fa-lock" class="align"></i>
-                <p class="align">Please fill your details</p>
-
-                <input class="text email" type="email" name="email" placeholder="Email" required="">
-
-                <p>just rememberd? <a href="login.php"> Sign in</a></p>
-                <input type="submit" value="NEXT">
-
-            </form>
-
+        <div class="footer">
+            <p>© Tactota Solutions All rights reserved </p>
         </div>
     </div>
-
-    <div class="footer">
-        <p>© Tactota Solutions All rights reserved </p>
-    </div>
-</div>
 </body>
 </html>
-
-

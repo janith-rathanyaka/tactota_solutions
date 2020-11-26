@@ -71,5 +71,16 @@ textarea {
     display: inline-block;
     text-align: right;
     font: bolder;
-    align-content:left;
+    align-content: right;
+}
+
+input[type=text1] {
+    width: 80px;
+    height: 40px;
+    padding: 2px 2px;
+    margin: 8px 0;
+    display: inline-block;;
+    border: 1px solid #ccc;
+    border-radius: 1px;
+    box-sizing: border-box;
 }

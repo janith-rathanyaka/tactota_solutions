@@ -1,57 +1,149 @@
 <?php
-include 'clerk_sidebar.php';
-require '../controller/inventory_maintain.php';
-$data=new inventory_maintain();
-$sql=$data->update_product();
+//require '../controller/authenitication.php';
+session_start();
+$row= $_SESSION['upadate_profile_view'];
+//$row=$_SESSION['row'];
+/* if($_SESSION['role']=="Clerk")
+   require('clerk_sidebar.php');
+elseif ($_SESSION['role']=="Admin")
+   require('admin_sidebar.php');
+elseif($_SESSION['role']=='Shopkeeper')
+   require('shopkeeper_sidebar.php');
+*/
+
+//include 'clerk_sidebar.php';
+
+
+// print_r($_SESSION['emp_id']);
+
+
 ?>
-<head>
-    <link rel="stylesheet" href="../public/css/update.css">
-</head>
-<div class="content" style="width:auto;">
-    <h1 id="tbl-heading">View All Products</h1>
-    <div class="search">
-        <input type="text" placeholder="Search..">
-    </div>
-    <div>
-        <a class="add_button" href="newproduct.php">-|- Add new Product</a>
-    </div>
 
-    <br>
-    <div class="view-tbl">
-        <table>
-            <thead>
-            <tr>
-                <th>Product ID</th>
-                <th>Product Name</th>
-                <th>Brand Name</th>
-                <th>Model No</th>
-                <th>Quantity</th>
-                <th >Product Cost</th>
-                <th >Action</th>
-            </tr>
-            </thead>
-            <tbody>
-            <?php
-            foreach ($sql as $k => $v)
-            {
-                ?>
-                <tr>
-                    <td><?php echo $sql[$k]["p_id"] ?></td>
-                    <td><?php echo $sql[$k]["p_name"] ?></td>
-                    <td><?php echo $sql[$k]["brand_name"] ?></td>
-                    <td><?php echo $sql[$k]["model_no"] ?></td>
-                    <td><?php echo $sql[$k]["quantity"] ?></td>
-                    <td><?php echo $sql[$k]["p_cost"] ?></td>
-                    <td>
-                        <a href="../controller/inventory_maintain.php?action=view_product_details&id=<?php  echo $sql[$k]["p_id"]; ?>" class="view"><button>View</button></a>
-                    </td>
+<link rel="stylesheet" href="../public/css/signup.css">
+<link rel="stylesheet" href="../public/css/style1.css">
 
-                </tr>
-                <?php
+<div class="content">
+    <form method="post" action="../controller/authenitication.php?action=update_profile&id=<?php echo $row['emp_id'] ?>">
+        <div class="main-container">
+            <div class="sub-container">
 
-            } ?>
-            </tbody>
-        </table>
-    </div>
+                <div class="row">
+                    <div class="col-75">
+                        <b><h2>Edit Account Informations</h2></b>
+                    </div>
+
+                </div>
+
+                </br>
+
+                <div class="row">
+                    <div class="col-25">
+                        <label1 for="firstname">First Name</label1>
+                    </div>
+                    <div class="col-75">
+                        <input type="text" name="firstname" value="<?php echo $row['first_name'] ?>" disabled>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-25">
+                        <label1 for="middlename">Middle Name</label1>
+                    </div>
+                    <div class="col-75">
+                        <input type="text" name="middlename" value="<?php echo $row['middle_name'] ?>" disabled>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-25">
+                        <label1 for="lastname">Last Name</label1>
+                    </div>
+                    <div class="col-75">
+                        <input type="text" name="lastname" value="<?php echo $row['last_name'] ?>" disabled>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-25">
+                        <label1 for="address">Address</label1>
+                    </div>
+                    <div class="col-75">
+                        <input type="text" name="adress" value="<?php echo $row['address'] ?>">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-25">
+                        <label1 for="mobile_no">Mobile Number</label1>
+                    </div>
+                    <div class="col-75">
+                        <input type="text" name="mobile_no" value="<?php echo $row['mobile_no'] ?>">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-25">
+                        <label1 for="nic">NIC</label1>
+                    </div>
+                    <div class="col-75">
+                        <input type="text" name="nic" value="<?php echo $row['nic'] ?>" disabled>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-25">
+                        <label1 for ="dob">DOB</label1>
+                    </div>
+                    <div class="col-75">
+                        <input type="text" name="dob" value="<?php echo $row['dob'] ?>" disabled>
+                    </div>
+                </div>
+                <br><br>
+
+                <!--div class="row">
+               <h5 class="left">Job Position</h5>
+                          <input class="text" type="radio" name="Job_position" value="cash" required="">Clerk
+                          <input class="text" type="radio" name="Job_position" value="cheque" required="">Shopkeeper
+              </div-->
+
+
+            </div>
+
+            <div class="sub-container">
+
+                </br></br</br></br></br></br>
+                <div class="row">
+                    <div class="col-25">
+                        <label1 for="email">Email</label1>
+                    </div>
+                    <div class="col-75">
+                        <input type="text" name="email" value="<?php echo $row['email'] ?>" >
+                    </div>
+                </div>
+                <br>
+                <!--h5 class="left">Image </h5><input class="text" type="file" name="nic" placeholder="Image" required=""-->
+
+
+
+
+                <br><br><br><br><br><br>
+
+
+                <div class="row">
+                    <div class="col-75">
+                        <input type="submit" name="update_profile" value="Update">
+                    </div>
+                </div>
+
+
+
+            </div>
+
+
+
+        </div>
+    </form>
 </div>
 </body>
